@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "esbuild src/server/serverImpl.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "build": "esbuild src/server/serverImpl.ts --bundle --platform=node --target=node20 --format=cjs --sourcemap --outfile=dist/server.cjs --external:pg --external:pg-native --external:bcryptjs --external:express --external:cors --external:jsonwebtoken --external:dotenv --external:xlsx --loader:.node=copy",
     "start": "node dist/server.cjs",
     "lint": "tsc --noEmit"
   },
