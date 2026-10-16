@@ -1,0 +1,8 @@
+{
+  "name": "Tecido-sublimado--Fortaleza",
+  "description": "ERP Corporativo de Missão Crítica para Indústria de Sublimação e Têxtil",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

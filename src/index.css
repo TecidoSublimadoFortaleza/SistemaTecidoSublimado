@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+:root {
+  font-size: 15px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+html {
+  font-size: inherit;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+body {
+  font-size: inherit;
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Safe area support for mobile devices with notches/bars */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Touch friendly scrolling for horizontal tables and boards */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* ==========================================================================
+   EXCLUIR SCROLL E INNER SPINS DENTRO DOS CAMPOS (OS, CAIXA OS, ESTOQUE, RH)
+   ========================================================================== */
+
+/* Remover setas de incremento / decremento em inputs numéricos */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input[type=number] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+/* Ocultar barras de rolagem internas em inputs, selects e textareas */
+input,
+select,
+textarea {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE e Edge */
+}
+
+input::-webkit-scrollbar,
+select::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* ==========================================================================
+   OCULTAR BARRA DE ROLAGEM LATERAL (SIDEBAR E LATERAL DA PÁGINA)
+   CLÁUSULA DE PROTEÇÃO CONTRA REGRESSÃO:
+   Mantém a rolagem ativa e fluida por mouse, toque e teclado, tornando
+   exclusivamente a barra de rolagem visual invisível.
+   ========================================================================== */
+
+/* Barra de rolagem lateral invisível para html, body e root */
+html,
+body,
+#root {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE e Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+#root::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+#root::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+/* Ocultar barra de rolagem do menu lateral (aside) e containers com rolagem invisível */
+.no-scrollbar,
+.scrollbar-none,
+aside,
+aside * {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE e Edge */
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar,
+aside::-webkit-scrollbar,
+aside *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  -webkit-appearance: none !important;
+}
+
+.no-scrollbar::-webkit-scrollbar-thumb,
+.scrollbar-none::-webkit-scrollbar-thumb,
+aside::-webkit-scrollbar-thumb,
+aside *::-webkit-scrollbar-thumb {
+  display: none !important;
+  background: transparent !important;
+}
+
+.no-scrollbar::-webkit-scrollbar-track,
+.scrollbar-none::-webkit-scrollbar-track,
+aside::-webkit-scrollbar-track,
+aside *::-webkit-scrollbar-track {
+  display: none !important;
+  background: transparent !important;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* ==========================================================================
+   OTIMIZAÇÃO DE IMPRESSÃO GLOBAL (DANFE, RELATÓRIOS E COMPROVANTES)
+   ========================================================================== */
+@media print {
+  @page {
+    size: auto;
+    margin: 5mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Oculta elementos não imprimíveis */
+  .print\:hidden,
+  .no-print,
+  nav,
+  aside,
+  header {
+    display: none !important;
+  }
+
+  /* Caso haja modal DANFE aberto na tela */
+  #danfe-modal-backdrop {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  #danfe-modal-card {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #danfe-printable-container {
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   TEMA NATALINO DOURADO - EFEITO SHIMMER & ACABAMENTO DOURADO ELEGANTE
+   ========================================================================== */
+
+@keyframes goldShineSweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+.theme-holiday-gold button,
+.theme-holiday-gold .btn-holiday-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de brilho luminoso deslizando de ponta a ponta */
+.theme-holiday-gold button:not([disabled])::after,
+.theme-holiday-gold .btn-holiday-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 215, 0, 0) 0%,
+    rgba(255, 235, 160, 0.5) 50%,
+    rgba(255, 215, 0, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-25deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.theme-holiday-gold button:not([disabled]):hover::after,
+.theme-holiday-gold button:not([disabled]):active::after,
+.theme-holiday-gold .btn-holiday-shimmer:hover::after,
+.theme-holiday-gold .btn-holiday-shimmer:active::after {
+  animation: goldShineSweep 1.05s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Acabamento dourado nobre na barra superior e menu lateral */
+.theme-holiday-gold header,
+.theme-holiday-gold nav.top-navbar,
+.theme-holiday-gold .top-header-bar {
+  border-bottom: 2px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.15) !important;
+}
+
+.theme-holiday-gold aside,
+.theme-holiday-gold .sidebar-container {
+  border-right: 2px solid rgba(217, 119, 6, 0.35) !important;
+  box-shadow: 4px 0 24px -2px rgba(245, 158, 11, 0.1) !important;
+}
+
+
