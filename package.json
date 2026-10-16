@@ -30,6 +30,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@rollup/wasm-node": "^4.64.7",
     "@types/bcryptjs": "^3.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^4.17.21",
