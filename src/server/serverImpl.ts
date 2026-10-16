@@ -23,18 +23,16 @@ export async function startEnterpriseServer() {
   const PORT = cliPort || envPort || 3000;
   const app = express();
 
-  // 1. Synchronize database from Postgres in background without blocking server startup (prevents 503 timeout on Hostinger)
-  (async () => {
-    try {
-      await checkDatabaseConnection();
-      await Database.getInstance().initialize();
-      OsRepository.sanitizeDuplicateCodes();
-      syncAllLocalPublicImagesToSupabase().catch(() => {});
-      console.log('[Server] Banco de dados Supabase e repositórios sincronizados com sucesso!');
-    } catch (err) {
-      console.error('[Server] Sincronização inicial falhou, operando em contingência:', err);
-    }
-  })();
+  // 1. Synchronize database from Postgres before initializing seed and accepting requests
+  try {
+    await checkDatabaseConnection();
+    await Database.getInstance().initialize();
+    OsRepository.sanitizeDuplicateCodes();
+    syncAllLocalPublicImagesToSupabase().catch(() => {});
+    console.log('[Server] Banco de dados Supabase e repositórios sincronizados com sucesso!');
+  } catch (err) {
+    console.error('[Server] Sincronização inicial falhou, operando em contingência:', err);
+  }
 
   // 2. Initialize DB Seed Script without overriding existing profiles/passwords
   initializeDatabaseSeed();
